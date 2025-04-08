@@ -1,0 +1,126 @@
+:root {
+    /* === Color Palette === */
+    --color-blue-dark: #117DBF;
+    --color-blue-medium: #25A6D9;
+    --color-blue-light: #25B8D9;
+    --color-light-grey: #F2F2F2;
+    --color-blue-pastel: #91B0D9;
+    --color-grey: #2A2A2A;
+  
+    /* === Box Shadows === */
+    --shadow-blue-dark: 0 4px 8px rgba(17, 125, 191, 0.4);
+    --shadow-blue-medium: 0 4px 8px rgba(37, 166, 217, 0.4);
+    --shadow-blue-light: 0 4px 8px rgba(37, 184, 217, 0.4);
+    --shadow-light-grey: 0 4px 8px rgba(242, 242, 242, 0.4);
+    --shadow-blue-pastel: 0 4px 8px rgba(145, 176, 217, 0.4);
+  
+    /* === Hover Shadows === */
+    --hover-shadow-blue-dark: 0 6px 12px rgba(17, 125, 191, 0.6);
+    --hover-shadow-blue-medium: 0 6px 12px rgba(37, 166, 217, 0.6);
+    --hover-shadow-blue-light: 0 6px 12px rgba(37, 184, 217, 0.6);
+    --hover-shadow-light-grey: 0 6px 12px rgba(242, 242, 242, 0.6);
+    --hover-shadow-blue-pastel: 0 6px 12px rgba(145, 176, 217, 0.6);
+}
+
+body {
+    font-family: "Montserrat", sans-serif;
+    background-color: #f4f4f4;
+    margin: 0 3% 0 3%;
+    padding: 0;
+
+}
+
+
+/* HEADER STYLES */
+/* Header styles for the main navigation bar */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    flex-direction: row;
+    padding: 20px 0;
+}
+
+header > div.navbar {
+    display: flex;
+    align-items: center;
+}
+
+.navbar > ul {
+    display: flex;
+    list-style: none;
+    gap: 1em;
+    flex-direction: row;
+}
+
+.navbar > ul > li > a {
+    text-decoration: none;
+    color: var(--color-blue-dark);
+    font-weight: bold;
+    border-radius: 15px;
+    padding: 10px 15px;
+    transition: background-color 0.2s, box-shadow 0.3s;
+}
+
+.navbar > ul > li > a:hover {
+    background-color: var(--color-blue-light);
+    color: var(--color-light-grey);
+    box-shadow: var(--hover-shadow-blue-light);
+}
+
+/* MAIN */
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px 0;
+}
+
+.slogan {
+    display: flex;
+    flex-direction: column;
+    align-self: center;  
+    justify-content: center;
+    line-height: 0%;
+    letter-spacing: -2px;
+    color: var(--color-blue-dark);
+}
+
+.slogan h1 {
+    font-size: 3.5em;
+    font-weight: 800;
+}
+.slogan h2 {
+    font-size: 2em;
+    font-weight: 400;
+    color: var(--color-grey);
+}
+
+.cta-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding: 10px 20px;
+    width: 30%;
+
+    border-radius: 15px;
+    background-color: var(--color-blue-pastel);
+
+    font-size: 1.5em;
+    font-weight: 400;
+    color: var(--color-light-grey);
+    text-decoration: none;
+
+    transition: background-color 0.2s, box-shadow 0.3s;
+}
+
+.cta-button:hover {
+    background-color: var(--color-blue-light);
+    box-shadow: var(--hover-shadow-blue-light);
+    color: var(--color-light-grey);
+}
