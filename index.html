@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <script src="https://kit.fontawesome.com/e02d7efcb9.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header> 
@@ -28,15 +30,81 @@
     <main>
         <div class="hero">
             <div class="slogan">
-                <h1>Abbatti le Barriere Linguistiche.</h1>
-                <h1>Ovunque Tu Sia.</h1>
+                <h1 class="slogan-blue">Abbatti le Barriere Linguistiche.</h1>
+                <h1 class="slogan-grey">Ovunque Tu Sia.</h1>
                 <h2>Ti sei mai trovato in difficoltà all’estero perché non capivi la lingua?</h2>
             </div>
             <div class="cta">
-                <a href="#contact" class="cta-button">Provalo Ora</a>
+                <a href="#about" class="cta-button">Scopri di più</a>
             </div>
         </div>
 
+        <section id="about" class="section light">
+            <h2 class="section_title">Traduzioni in Tempo Reale. Senza Stress.</h2>
+            <p class="section_text">ConverzIA.net è il primo servizio che unisce un dispositivo portatile con microfono e altoparlante integrati, un’app intuitiva per iOS e Android, e una versione web accessibile da qualsiasi browser. Tutto sincronizzato, tutto immediato. Basta barriere, solo comunicazione.</p>
+        </section>
+    
+        <section id="features" class="section dark">
+            <h2 class="section_title">Cosa Puoi Fare</h2>
+            <ul class="features_list">
+                <li class="features_item"><i class="fas fa-headset"></i> <p>Parla e ascolta in tempo reale</p></li>
+                <li class="features_item"><i class="fas fa-mobile-alt"></i> <p>App mobile per iOS e Android</p></li>
+                <li class="features_item"><i class="fa-solid fa-laptop"></i> <p>Accesso via browser su PC e tablet</p></li>
+                <li class="features_item"><i class="fa-solid fa-earth-europe"></i> <p>Supporto IA multilingua</p></li>
+                <li class="features_item"><i class="fas fa-shield-alt"></i> <p>Privacy e sicurezza dei dati</p></li>
+                <li class="features_item"><i class="fas fa-user-friends"></i> <p>Interfaccia intuitiva e user-friendly</p></li>
+            </ul>
+        </section>
+
+        <section id="how-it-works" class="section light">
+            <h2 class="section_title">Come Funziona</h2>
+            <p class="section_text">ConverzIA.net è semplice e intuitivo. Parla o ascolta, leggi o scrivi, personalizza e esplora. Con il nostro supporto multilingua, puoi viaggiare o lavorare in ogni angolo del mondo senza preoccupazioni.</p>
+            <ul class="how_it_works_list">
+                <li class="how_it_works_item">Parla o ascolta: ConverzIA.net capisce tutto, in tempo reale</li>
+                <li class="how_it_works_item">Leggi o scrivi: traduzioni rapide e precise, ovunque ti trovi</li>
+                <li class="how_it_works_item">Personalizza: salva frasi, crea il tuo vocabolario personale</li>
+                <li class="how_it_works_item">Esplora: supporto multilingua per viaggiare o lavorare in ogni angolo del mondo</li>
+            </ul>
+        </section>
+
+        <section id="contact" class="section">
+            <h2 class="section_title">Contattaci</h2>
+            <p class="section_text">Hai domande? Vuoi saperne di più? Contattaci per scoprire come ConverzIA.net può aiutarti.</p>
+            <form action="post">
+                <div class="contact_form">
+                    <label for="name">Nome</label>
+                    <input type="text" id="name" name="name" required>
+
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+
+                    <label for="message">Messaggio (max 250 chars.)</label>
+                    <textarea id="message" name="message" rows="6" maxlength="250"></textarea>
+
+                    <button type="submit" class="form_button">Invia</button>
+                </div>
+            </form>
+        </section>
     </main>
+
+    <footer>
+        <div class="footer-links">
+            <div class="left">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#services">Services</a>
+                <a href="#contact">Try It</a>
+            </div>
+            <div class="right">
+                <a href="#privacy">Privacy Policy</a>
+                <a href="#terms">Terms of Service</a>
+                <a href="#contact">Contact Us</a>
+            </div>
+        </div>
+
+        <div class="footer-content">
+            <p>&copy; 2023 ConverzIA.net. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
