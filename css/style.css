@@ -510,8 +510,301 @@ div.footer-links > div.left, div.footer-links > div.right {
     flex-direction: column;
 }
 
+/* PAGE: TRY IT */
+/* Page styles for the "Try It" page */
+
+/*
+
+        <div id="tryit" class="tryit-section">
+            <h2 class="tryit-title">Try Our Translator</h2>
+            <p class="tryit-description">Experience the power of real-time translation with ConverzIA.net. Speak and listen in multiple languages seamlessly.</p>
+            <div class="tryit-form">
+                <div class="upper-buttons">
+                    <button id="languageButton" class="tryit-button">Select Language</button>
+                    <button id="settingsButton" class="tryit-button">Settings</button>
+                </div>
+                <div class="text-input">
+                    <textarea id="inputText" rows="4" placeholder="Type here..."></textarea>
+                    <div class="lateral-buttons">
+                        <div>
+                            <button id="insertMedia" class="tryit-lateral-button">Stop</button>
+                            <button id="translateButton" class="tryit-lateral-button">Translate</button>
+                            <button id="clearButton" class="tryit-lateral-button">Clear</button>
+                        </div>
+                        <div>
+                            <button id="speakButton" class="tryit-lateral-button">Speak</button>
+                            <button id="stopButton" class="tryit-lateral-button">Stop</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="tryit-features">
+                <h3>Features:</h3>
+                <ul>
+                    <li>Multi-language support</li>
+                    <li>User-friendly interface</li>
+                </ul>
+            </div>
+        </div>
+
+*/
+
+.tryit-section {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    width: 50%;
+    gap: 2em;
+}
+
+.tryit-section > h2.tryit-title {
+    font-size: 2.5em;
+    font-weight: 800;
+    color: var(--color-blue-dark);
+    margin: 0;
+}
+
+.tryit-section > p.tryit-description {
+    font-size: 1.5em;
+    font-weight: 400;
+    color: var(--color-grey);
+    margin: 0;
+}
+
+.tryit-section > div.tryit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.tryit-section > div.tryit-form > div.upper-buttons {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+}
+
+button.tryit-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+
+    border-radius: 15px;
+    border: none;
+
+    font-size: 1em;
+    font-weight: 400;
+    color: var(--color-light-grey);
+    text-decoration: none;
+    background-color: var(--color-blue-dark);
+    opacity: 60%;
+
+    transition: background-color 0.2s, box-shadow 0.3s;
+}
+button.tryit-button:hover {
+    background-color: var(--color-blue-dark);
+    box-shadow: var(--hover-shadow-blue-dark);
+    color: var(--color-light-grey);
+    opacity: 100%;
+}
+
+select.tryit-selector {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+
+    border-radius: 15px;
+    border: none;
+
+    font-size: 1em;
+    font-weight: 400;
+    color: var(--color-light-grey);
+    text-decoration: none;
+    background-color: var(--color-blue-dark);
+    opacity: 60%;
+
+    transition: background-color 0.2s, box-shadow 0.3s;
+}
+
+select.tryit-selector:hover {
+    background-color: var(--color-blue-dark);
+    box-shadow: var(--hover-shadow-blue-dark);
+    color: var(--color-light-grey);
+    opacity: 100%;
+}
+
+select.tryit-selector:focus {
+    outline: none;
+    box-shadow: var(--hover-shadow-blue-light);
+}
+
+select.tryit-selector > option {
+    font-family: "Montserrat", sans-serif;
+    font-size: 1em;
+    font-weight: 400;
+    color: var(--color-light-grey);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: var(--shadow-blue-pastel);
+}
+
+.tryit-section > div.tryit-form > div.text-input {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
+.tryit-section > div.tryit-form > div.text-input > textarea {
+    font-family: "Montserrat", sans-serif;
+    width: 100%;
+    font-size: 1.2em;
+    font-weight: 400;
+    color: var(--color-grey);
+    padding: 10px 15px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: var(--shadow-blue-pastel);
+    max-width: 100%;
+    resize: none;
+}
+
+.tryit-section > div.tryit-form > div.text-input > textarea:focus {
+    outline: none;
+    box-shadow: var(--hover-shadow-blue-light);
+}
+
+.tryit-section > div.tryit-form > div.text-input > div.lateral-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1em;
+}
+
+.tryit-section > div.tryit-form > div.text-input > div.lateral-buttons > div {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+button.tryit-lateral-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 20px;
+
+    border-radius: 15px;
+    border: none;
+
+    font-size: 1em;
+    font-weight: 400;
+    color: var(--color-light-grey);
+    text-decoration: none;
+    background-color: var(--color-blue-dark);
+    opacity: 60%;
+
+    transition: background-color 0.2s, box-shadow 0.3s;
+}
+
+button.tryit-lateral-button:hover {
+    background-color: var(--color-blue-dark);
+    box-shadow: var(--hover-shadow-blue-dark);
+    color: var(--color-light-grey);
+    opacity: 100%;
+}
+
+/* SECTION TRY IT SELECTED MEDIA */
+/*
+
+        <div id="mediaContainer" class="media-container">
+            <div class="media-item">
+                <img id="mediaPreview" src="" alt="Media Preview" class="media-preview">
+                <button id="removeMedia" class="tryit-button"><i class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+*/
+
+.media-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+    gap: 1em;
+}
+
+.media-container > div.media-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+div.media-container > div.media-item > p.media-text {
+    font-size: 1em;
+    font-weight: 400;
+    color: var(--color-grey);
+    margin: 0;
+    padding: 10px 15px;
+    width: 90%;
+}
 
 
+
+/* SECTION TRY IT FEATURES */
+
+/*
+
+        <div class="tryit-features">
+            <h3>Features:</h3>
+            <ul>
+                <li>Multi-language support</li>
+                <li>User-friendly interface</li>
+            </ul>
+        </div>
+
+*/
+
+.tryit-features {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.tryit-features > h3 {
+    font-size: 2em;
+    font-weight: 800;
+    color: var(--color-blue-dark);
+    margin: 0;
+}
+
+.tryit-features > ul {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    padding: 0;
+    gap: 1em;
+}
+
+.tryit-features > ul > li {
+    font-size: 1.5em;
+    font-weight: 400;
+    color: var(--color-grey);
+    margin: 0;
+    padding: 10px 15px;
+    border-radius: 15px;
+    opacity: 60%;
+    box-shadow: var(--shadow-blue-pastel);
+    transition: background-color 0.2s, box-shadow 0.3s;
+}
+
+.tryit-features > ul > li:hover {
+    background-color: var(--color-blue-light);
+    box-shadow: var(--hover-shadow-blue-light);
+    color: var(--color-light-grey);
+    opacity: 100%;
+}
 
 @media screen and (max-width: 768px) {
 
@@ -543,4 +836,7 @@ div.footer-links > div.left, div.footer-links > div.right {
         font-size: large;
     }
 
+    .tryit-section {
+        width: 90%;
+    }
 }
