@@ -26,19 +26,25 @@ class OpenAIClient {
         }
     }
 
-    async transcribeAudio(audioBuffer: Buffer): Promise<string> {
+    async transcribeAudio(audioBuffer: Buffer, fileType: string): Promise<string> {
         try {
-            const tempFilePath = './temp-audio.webm';
+            const supportedFormats = ['audio/webm', 'audio/mpeg', 'audio/wav', 'audio/ogg'];
+            if (!supportedFormats.includes(fileType)) {
+                throw new Error(`File format (${fileType}) not supported. Supported formats are: ${supportedFormats.join(', ')}`);
+            }
+    
+            const extension = fileType.split('/')[1]; // Ottieni l'estensione dal tipo MIME
+            const tempFilePath = `./temp-audio.${extension}`;
             fs.writeFileSync(tempFilePath, audioBuffer);
-
+    
             const response = await this.openai.audio.transcriptions.create({
                 file: fs.createReadStream(tempFilePath),
                 model: 'whisper-1',
                 response_format: 'text',
-                // `filename` is required to infer MIME type correctly
+                language: 'it',
             });
-
-            fs.unlinkSync(tempFilePath); // Clean up the temporary file
+    
+            fs.unlinkSync(tempFilePath); // Pulisci il file temporaneo
     
             if (!response) {
                 throw new Error('Transcription response is null');

@@ -9,6 +9,7 @@ let translateBtn = document.querySelector("#translateButton"); //Lateral
 let insertMediaBtn = document.querySelector("#insertMedia"); //Lateral
 let clearBtn = document.querySelector("#clearButton"); //Lateral
 let textArea = document.querySelector("#inputText"); //Main
+let outputText = document.querySelector("#outputText"); //Main
 let textDiv = document.querySelector(".text-input"); //Main
 
 let removeMediaBtn = document.querySelector("#removeMedia"); //Main
@@ -18,15 +19,10 @@ let mediaFileName = document.querySelector("#mediaFileName"); //Main
 let microphoneButton = document.querySelector("#microphoneButton"); //Main
 let microphoneIcon = document.querySelector("#microphoneIcon"); //Main
 
-const selectedMedia = {
-    type: null,
-    uri: null,
-    alt: null,
-}
-
 const TRANSLATE_URL = "http://127.0.0.1:3000/translate"; // Ensure consistent localhost usage
 
 microphoneButton.addEventListener("click", () => {
+    event.preventDefault(); // Prevent default action of the button
     if (microphoneIcon.classList.contains("fa-microphone")) {
         microphoneIcon.classList.remove("fa-microphone");
         microphoneIcon.classList.add("fa-microphone-slash");
@@ -38,93 +34,65 @@ microphoneButton.addEventListener("click", () => {
     }
 });
 
+//script to handle the recording of the audio and the sending of the audio to the server and wait for the response, without creating a new audio element
+
 let mediaRecorder;
 let audioChunks = [];
-let audio_uri;
+let audioBlob;
+let audioUrl;
+let language = "en"; // Default language
+
+selectedLang.addEventListener("change", (event) => {
+    selectedLang = event.target.value; // Get the selected language from the dropdown
+    language = selectedLang; // Update the language variable
+    console.log("Selected language:", selectedLang);
+});
+
 
 const startRecording = () => {
-    console.log("Recording started...");
     navigator.mediaDevices.getUserMedia({ audio: true })
-        .then((stream) => {
+        .then(stream => {
+            audioChunks = []; // Clear previous audio chunks
             mediaRecorder = new MediaRecorder(stream);
             mediaRecorder.start();
 
-            mediaRecorder.ondataavailable = (event) => {
+            mediaRecorder.addEventListener("dataavailable", event => {
                 audioChunks.push(event.data);
-            };
+            });
 
-            mediaRecorder.onstop = () => {
-                const audioBlob = new Blob(audioChunks, { type: "audio/mpeg" }); // Change type to "audio/mp3"
-                const audioUrl = URL.createObjectURL(audioBlob);
-                const audioElement = document.createElement("audio");
-                audioElement.src = audioUrl;
-                audioElement.controls = true;
-                textDiv.appendChild(audioElement);
-
-                // Prepare the audio file for sending to the server
-                selectedMedia.type = "audio";
-                selectedMedia.uri = audioUrl;
-                selectedMedia.alt = "recording.mp3"; // Update file extension to .mp3
-                audio_uri = audioUrl; // Store the audio URL for later use
-                console.log("Audio URL:", audioUrl);
-
-                stream.getTracks().forEach((track) => track.stop());
-                audioChunks = []; // Clear the chunks for the next recording
-            };
-        })
-        .catch((error) => {
-            console.error("Error accessing microphone:", error);
+            mediaRecorder.addEventListener("stop", () => {
+                audioBlob = new Blob(audioChunks, { type: "audio/wav" });
+                audioUrl = URL.createObjectURL(audioBlob);
+                sendAudioToServer(audioBlob); // Send the audio blob to the server
+            });
         });
-};
+}
 
 const stopRecording = () => {
-    if (mediaRecorder && mediaRecorder.state === "recording") {
-        console.log("Recording stopped...");
-        mediaRecorder.stop();
+    mediaRecorder.stop();
+    mediaRecorder.stream.getTracks().forEach(track => track.stop()); // Stop all tracks of the stream
+    mediaRecorder = null; // Clear the media recorder
+}
 
-        // Send the MP3 file to the server
-        const formData = new FormData();
-        const audioBlob = new Blob(audioChunks, { type: "audio/mpeg" }); // Change type to "audio/mp3"
-        formData.append("audio", audioBlob, "recording.mp3"); // Update file extension to .mp3
-        formData.append("lang", selectedLang.value); // Append the selected language to the form data
-        
-        formData.append("text", textArea.value); // Append the text area content to the form data
-
-        formData.append("media", JSON.stringify(selectedMedia)); // Append the selected media to the form data
-
-        console.log("Form data:", formData);
-
-        fetch(TRANSLATE_URL, {
-            method: "POST",
-            body: formData,
-            headers: {
-                "Access-Control-Allow-Origin": "*", // Add this header if the server supports it
-            },
+const sendAudioToServer = (audioBlob) => {
+    const formData = new FormData();
+    formData.append("audio", audioBlob, "recording.wav"); // Append the audio blob to the form data
+    formData.append("language", language); // Append the selected language to the form data
+    fetch(TRANSLATE_URL, {
+        method: "POST",
+        body: formData,
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Transcription:", data.text);
+            console.log("Translation response:", data.translation);
+            outputText.value = data.translation; // Update the text area with the translation
+            textArea.value = data.text; // Update the text area with the transcription
         })
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                return response.json();
-            })
-            .then((data) => {
-                console.log("Translation response:", data);
-                // Update the text area with the translated content
-                textArea.value = data.translated_text || "Translation failed.";
-                // Clear the selected media after translation
-                clearMedia();
-            })
-            .catch((error) => {
-                console.error("Error during translation:", error);
-                textArea.value = "Translation failed. Please try again.";
-            });
-    }
-    else if (mediaRecorder) {
-        console.warn("Recording is already stopped.");
-    } else {
-        console.warn("No active recording to stop.");
-    }
-};
+        .catch(error => {
+            console.error("Error sending audio to server:", error);
+        });
+}
 
 const clearText = () => {
     textArea.value = "";

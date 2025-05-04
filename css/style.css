@@ -524,16 +524,20 @@ div.footer-links > div.left, div.footer-links > div.right {
                     <button id="settingsButton" class="tryit-button">Settings</button>
                 </div>
                 <div class="text-input">
-                    <textarea id="inputText" rows="4" placeholder="Type here..."></textarea>
+                    <div class="text-input-container">
+                        <textarea id="inputText" rows="20" placeholder="Type here your text, or import a media with buttons at the right side of text input..."></textarea>
+                        <textarea id="outputText" rows="20" placeholder="Here's your translation. Keep going!"></textarea>
+                    </div>
                     <div class="lateral-buttons">
                         <div>
-                            <button id="insertMedia" class="tryit-lateral-button">Stop</button>
-                            <button id="translateButton" class="tryit-lateral-button">Translate</button>
-                            <button id="clearButton" class="tryit-lateral-button">Clear</button>
+                            <button id="insertMedia" class="tryit-lateral-button" title="Insert Media"><i class="fas fa-file-import"></i></button>
+                            <button id="translateButton" class="tryit-lateral-button" title="Translate"><i class="fas fa-language"></i></button>
+                            <button id="clearButton" class="tryit-lateral-button" title="Clear Text"><i class="fas fa-eraser"></i></button>
                         </div>
                         <div>
-                            <button id="speakButton" class="tryit-lateral-button">Speak</button>
-                            <button id="stopButton" class="tryit-lateral-button">Stop</button>
+                            <button id="speakButton" class="tryit-lateral-button" title="Speak"><i class="fas fa-volume-up"></i></button>
+                            <button id="stopButton" class="tryit-lateral-button" title="Stop"><i class="fas fa-stop"></i></button>
+                            <button id="removeMedia" class="tryit-lateral-button" title="Remove Media"> <i class="fa-solid fa-circle-xmark"></i> </button>
                         </div>
                     </div>
                 </div>
@@ -656,13 +660,21 @@ select.tryit-selector > option {
     gap: 1em;
 }
 
-.tryit-section > div.tryit-form > div.text-input > textarea {
+.tryit-section > div.tryit-form > div.text-input > .text-input-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    gap: 1em;
+}
+
+.tryit-section > div.tryit-form > div.text-input > div.text-input-container > textarea {
     font-family: "Montserrat", sans-serif;
     width: 100%;
     font-size: 1.2em;
     font-weight: 400;
     color: var(--color-grey);
-    padding: 10px 15px;
     border-radius: 15px;
     border: none;
     box-shadow: var(--shadow-blue-pastel);
@@ -670,7 +682,7 @@ select.tryit-selector > option {
     resize: none;
 }
 
-.tryit-section > div.tryit-form > div.text-input > textarea:focus {
+.tryit-section > div.tryit-form > div.text-input > div.text-input-container > textarea:focus {
     outline: none;
     box-shadow: var(--hover-shadow-blue-light);
 }
