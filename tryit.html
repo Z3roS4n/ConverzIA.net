@@ -60,11 +60,12 @@
                 </div>
                 <div class="text-input">
                     <textarea id="inputText" rows="20" placeholder="Type here your text, or import a media with buttons at the right side of text input..."></textarea>
+                    <textarea id="outputText" rows="20" placeholder="Here's your translation. Keep going!"></textarea>
                     <div class="lateral-buttons">
                         <div>
-                            <button id="insertMedia" class="tryit-lateral-button"><i class="fas fa-file-import"></i></button>
-                            <button id="translateButton" class="tryit-lateral-button"><i class="fas fa-language"></i></button>
-                            <button id="clearButton" class="tryit-lateral-button"><i class="fas fa-eraser"></i></button>
+                            <button id="insertMedia" class="tryit-lateral-button" title="Insert Media"><i class="fas fa-file-import"></i></button>
+                            <button id="translateButton" class="tryit-lateral-button" title="Translate"><i class="fas fa-language"></i></button>
+                            <button id="clearButton" class="tryit-lateral-button" title="Clear Text"><i class="fas fa-eraser"></i></button>
                             <!-- with icons please
                             <button id="insertMedia" class="tryit-lateral-button"><i class="fas fa-file-import"></i> Insert Media</button>
                             <button id="translateButton" class="tryit-lateral-button"><i class="fas fa-language"></i> Translate</button>
@@ -74,9 +75,9 @@
                             -->
                         </div>
                         <div>
-                            <button id="speakButton" class="tryit-lateral-button"><i class="fas fa-volume-up"></i></button>
-                            <button id="stopButton" class="tryit-lateral-button"><i class="fas fa-stop"></i></button>
-                            <button id="removeMedia" class="tryit-lateral-button"> <i class="fa-solid fa-circle-xmark"></i> </button>
+                            <button id="speakButton" class="tryit-lateral-button" title="Speak"><i class="fas fa-volume-up"></i></button>
+                            <button id="stopButton" class="tryit-lateral-button" title="Stop"><i class="fas fa-stop"></i></button>
+                            <button id="removeMedia" class="tryit-lateral-button" title="Remove Media"> <i class="fa-solid fa-circle-xmark"></i> </button>
                         </div>
                     </div>
                 </div>
@@ -87,6 +88,9 @@
                         <p id="mediaFileName" class="media-text">Media file name</p>
                     </div>
                 </div>
+            </div>
+            <div class="microphone-container">
+                <button id="microphoneButton" class="tryit-microphone-button" title="Start/Stop Recording"><i id="microphoneIcon" class="fas fa-microphone"></i></button>
             </div>
             <div class="tryit-features">
                 <h3>Features</h3>

@@ -750,6 +750,44 @@ div.media-container > div.media-item > p.media-text {
     width: 90%;
 }
 
+/* SECTION MICROPHONE & SPEAKER */
+/*
+
+        <div class="microphone-container">
+            <button id="microphoneButton" class="tryit-microphone-button" title="Start/Stop Recording"><i class="fas fa-microphone"></i></button>
+        </div>
+        */
+.microphone-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+}
+
+.microphone-container > button.tryit-microphone-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 50px 50px;
+
+    border-radius: 180px;
+    border: none;
+
+    font-size: 1.5em;
+    font-weight: 400;
+    color: var(--color-light-grey);
+    text-decoration: none;
+    background-color: var(--color-blue-dark);
+    opacity: 60%;
+
+    transition: background-color 0.2s, box-shadow 0.3s;
+}
+.microphone-container > button.tryit-microphone-button:hover {
+    background-color: var(--color-blue-light);
+    box-shadow: var(--hover-shadow-blue-dark);
+    color: var(--color-light-grey);
+    opacity: 100%;
+}
 
 
 /* SECTION TRY IT FEATURES */
@@ -830,6 +868,14 @@ div.media-container > div.media-item > p.media-text {
 
     .section#about, .section#features, .section#how-it-works, .section#contact {
         width: 90%;
+    }
+
+    div.text-input {
+        flex-direction: column;
+    }
+    div.text-input > div.lateral-buttons {
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     .contact_form > input, .contact_form > textarea {
