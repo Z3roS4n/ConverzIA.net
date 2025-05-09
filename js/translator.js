@@ -1,8 +1,4 @@
-let selectedLang = document.querySelector("#languageSelector");
-
-//CODE WHICH SENDS THE TO BE TRANSLATED CONTENT TO THE SERVER,
-//WAITS FOR THE RESPONSE
-//AND UPDATES THE PAGE WITH THE TRANSLATED CONTENT    
+let selectedLang = document.querySelector("#languageSelector"); //Language selector
 
 let settingsBtn = document.querySelector("#settingsButton"); //Top
 let translateBtn = document.querySelector("#translateButton"); //Lateral
@@ -19,6 +15,9 @@ let mediaFileName = document.querySelector("#mediaFileName"); //Main
 let microphoneButton = document.querySelector("#microphoneButton"); //Main
 let microphoneIcon = document.querySelector("#microphoneIcon"); //Main
 
+const strings_file = new FileReader([""], "strings.json", { type: "application/json" }); // Create a new file object
+const strings = JSON.parse(strings_file.result); // Read the file and parse it as JSON
+
 const TRANSLATE_URL = "http://127.0.0.1:3000/translate"; // Ensure consistent localhost usage
 
 microphoneButton.addEventListener("click", () => {
@@ -31,6 +30,16 @@ microphoneButton.addEventListener("click", () => {
         microphoneIcon.classList.remove("fa-microphone-slash");
         microphoneIcon.classList.add("fa-microphone");
         stopRecording(); // Stop recording audio
+    }
+});
+
+translateBtn.addEventListener("click", () => {
+    event.preventDefault(); // Prevent default action of the button
+    const text = textArea.value; // Get the text from the textarea
+    if (text.trim() === "") {
+        alert("Please enter text to translate."); // Alert if the textarea is empty
+    } else {
+        sendTextToServer(text); // Send the text to the server for translation
     }
 });
 
@@ -74,8 +83,28 @@ const stopRecording = () => {
     mediaRecorder = null; // Clear the media recorder
 }
 
+const sendTextToServer = (text) => {
+    outputText.value = strings.translating[language]; // Update the output text area with a loading message
+    fetch(TRANSLATE_URL, {
+        method: "POST",
+        body: JSON.stringify({ text, language }), // Send the text and selected language as JSON
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Translation response:", data.translation);
+            outputText.value = data.translation; // Update the text area with the translation
+        })
+        .catch(error => {
+            console.error("Error sending text to server:", error);
+        });
+}
+
 const sendAudioToServer = (audioBlob) => {
     const formData = new FormData();
+    outputText.value = strings.translating_audio[language]; // Update the output text area with a loading message
     formData.append("audio", audioBlob, "recording.wav"); // Append the audio blob to the form data
     formData.append("language", language); // Append the selected language to the form data
     fetch(TRANSLATE_URL, {

@@ -15,24 +15,49 @@ async function startServer() {
     await fastify.register(multipart); // Register the multipart plugin
     fastify.post('/translate', async (request, reply) => {
         try {
-            const data = await request.file(); // Estrai il file dalla richiesta multipart
-            if (!data) {
-                throw new Error('No file uploaded');
+            const isMultipart = request.isMultipart(); // Estrai il corpo della richiesta
+            if (isMultipart) { // Controlla se la richiesta è multipart
+                const data = await request.file(); // Estrai il file dalla richiesta multipart
+                if (!data) {
+                    console.log('No file uploaded!');
+                    return reply.status(400).send({ error: 'No file uploaded' });
+                }
+                const fileBuffer = await data?.toBuffer(); // Ottieni il buffer del file
+                const fileType = data?.mimetype;
+                const languageField = data?.fields.language; // Estrai il campo 'language' dalla richiesta multipart
+                const language = languageField?.value || 'en';
+                //contenuto della richiesta 
+                console.log("Selected language inviato nella richiesta :", language);
+                console.log("Uploaded file type:", fileType);
+                console.log("Uploaded file size:", fileBuffer?.length);
+                // Passa il buffer e il tipo MIME al metodo transcribeAudio
+                if (!fileBuffer)
+                    throw new Error('File buffer is undefined');
+                if (!fileType)
+                    throw new Error('File type is undefined');
+                if (!parsedLanguagePresets[language])
+                    throw new Error(`Language ${language} not supported!`);
+                const transcript = await openai.transcribeAudio(fileBuffer, fileType);
+                console.log("Transcription:", transcript);
+                const translation = await openai.getChatResponse(parsedLanguagePresets[language] + transcript);
+                console.log("Translation:", translation);
+                return reply.send({ translation, transcript });
             }
-            const fileBuffer = await data.toBuffer(); // Ottieni il buffer del file
-            const fileType = data.mimetype; // Ottieni il tipo MIME del file
-            const languageField = data.fields.language; // Estrai il campo 'language' dalla richiesta multipart
-            const language = languageField?.value || 'en';
-            //contenuto della richiesta 
-            console.log("Selected language inviato nella richiesta :", language); // Logga il valore della lingua selezionata
-            console.log("Uploaded file type:", fileType); // Logga il tipo MIME
-            console.log("Uploaded file size:", fileBuffer.length); // Logga la dimensione del file
-            // Passa il buffer e il tipo MIME al metodo transcribeAudio
-            const text = await openai.transcribeAudio(fileBuffer, fileType);
-            console.log("Transcription:", text); // Logga la trascrizione
-            const translation = await openai.getChatResponse(parsedLanguagePresets[language] + text); // Passa il testo trascritto al metodo getChatResponse
-            console.log("Translation:", translation); // Logga la traduzione
-            return reply.send({ translation, text });
+            else {
+                //SOLO TESTO
+                const data = await request.body; // Explicitly type the body
+                const text = data.text; // Estrai il campo 'text' dalla richiesta
+                const language = data.language; // Estrai il campo 'language' dalla richiesta
+                if (!parsedLanguagePresets[language])
+                    throw new Error(`Language ${language} not supported!`);
+                if (!text)
+                    throw new Error('Text is undefined!');
+                console.log("Selected language inviato nella richiesta :", language);
+                console.log("Text to translate:", text);
+                const translation = await openai.getChatResponse(parsedLanguagePresets[language] + text);
+                console.log("Translation:", translation);
+                return reply.send({ translation });
+            }
         }
         catch (error) {
             console.error('Error processing the audio:', error);
