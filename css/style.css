@@ -856,6 +856,89 @@ div.media-container > div.media-item > p.media-text {
     opacity: 100%;
 }
 
+/* SETTINGS POPUP */
+
+div.blur {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    z-index: 999;
+}
+
+div.settings {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    background-color: var(--color-light-grey);
+    border-radius: 15px;
+    box-shadow: var(--shadow-blue-pastel);
+    padding: 20px;
+    z-index: 1000;
+}
+
+div.settings-header {
+    display: flex;
+    flex-direction: row;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: transparent;
+    border: none;
+    font-size: 1.5em;
+    color: var(--color-grey);
+    cursor: pointer;
+}
+
+div.settings-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+div.settings-footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: 1em;
+    margin-top: 20px;
+}
+
+select.settings-selector {
+    display: flex;
+    padding: 10px 5px;
+
+    border-radius: 10px;
+
+    font-size: 1em;
+    font-weight: 400;
+    text-decoration: none;
+    opacity: 80%;
+
+    transition: background-color 0.2s, box-shadow 0.3s;
+}
+
+p.settings-nb {
+    font-size: 0.8em;
+    font-weight: 400;
+    color: var(--color-grey);
+    margin: 0;
+}
+
+
+
 @media screen and (max-width: 768px) {
 
 
@@ -863,6 +946,11 @@ div.media-container > div.media-item > p.media-text {
         margin: 2em;
         padding: 10vh 0;
 
+    }
+
+    .settings {
+        width: 90%;
+        padding: 10px;
     }
 
     .slogan {

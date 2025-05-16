@@ -13,6 +13,8 @@
     <script src="https://kit.fontawesome.com/e02d7efcb9.js" crossorigin="anonymous"></script>
 </head>
 <body>
+    <div class="blur"></div>
+
     <header> 
         <div class="logo">
             <img src="assets/logo_extended.png" alt="ConverzIA.net Logo" width="300">
@@ -27,10 +29,56 @@
         </nav>
     </header>
 
+    <div class="settings" id="settingsPopup">
+        <div class="settings-header">
+            <h2>Settings</h2>
+            <button id="closeSettings" class="close-button"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="settings-content">
+            <label for="yourLanguageSelector">Select your default transcription language:</label>
+            <select id="yourLanguageSelector" class="settings-selector">
+                <option value="en">English</option>
+                <option value="it">Italian</option>
+                <option value="es">Spanish</option>
+                <option value="fr">French</option>
+                <option value="de">German</option>
+                <option value="zh">Chinese</option>
+                <option value="ja">Japanese</option>
+                <option value="ru">Russian</option>
+                <option value="pt">Portuguese</option>
+                <option value="ar">Arabic</option>
+                <option value="ko">Korean</option>
+                <option value="hi">Hindi</option>
+                <option value="tr">Turkish</option>
+                <option value="nl">Dutch</option>
+                <option value="sv">Swedish</option>
+                <option value="no">Norwegian</option>
+                <option value="fi">Finnish</option>
+                <option value="da">Danish</option>
+                <option value="pl">Polish</option>
+                <option value="cs">Czech</option>
+                <option value="hu">Hungarian</option>
+            </select>
+            <p class="settings-nb">This setting will be used to set the default language for transcription. You can change it anytime.</p>
+            <!-- Add more settings options here as needed -->
+
+            <label for="autoTranslate">Enable Auto-Translate:</label>
+            <select id="autoTranslate" class="settings-selector">
+                <option value="true">Enabled</option>
+                <option value="false">Disabled</option>
+            </select>
+            <p class="settings-nb">When enabled, the translator will automatically translate the text as you type.</p>
+        </div>
+        <div class="settings-footer">
+            <button id="saveSettings" class="tryit-button">Save</button>
+            <button id="cancelSettings" class="tryit-button">Cancel</button>
+        </div>
+    </div>
+
     <main>
         <div id="tryit" class="tryit-section">
             <h2 class="tryit-title">Try Our Translator</h2>
-            <p class="tryit-description">Experience the power of real-time translation with ConverzIA.net. Speak and listen in multiple languages seamlessly.</p>
+            <p class="tryit-description">Prova la qualità delle nostre traduzioni, attualmente non in tempo reale. Il tool è gratuito, e funziona con registrazione vocale o upload di file audio!</p>
             <div class="tryit-form">
                 <div class="upper-buttons">
                     <select name="language-selector" id="languageSelector" class="tryit-selector" title="Select a language">
@@ -65,14 +113,14 @@
                     </div>
                     <div class="lateral-buttons">
                         <div>
-                            <button id="insertMedia" class="tryit-lateral-button" title="Insert Media"><i class="fas fa-file-import"></i></button>
+                            <!-- <button id="insertMedia" class="tryit-lateral-button" title="Insert Media"><i class="fas fa-file-import"></i></button>-->
                             <button id="translateButton" class="tryit-lateral-button" title="Translate"><i class="fas fa-language"></i></button>
                             <button id="clearButton" class="tryit-lateral-button" title="Clear Text"><i class="fas fa-eraser"></i></button>
                         </div>
                         <div>
                             <button id="speakButton" class="tryit-lateral-button" title="Speak"><i class="fas fa-volume-up"></i></button>
                             <button id="stopButton" class="tryit-lateral-button" title="Stop"><i class="fas fa-stop"></i></button>
-                            <button id="removeMedia" class="tryit-lateral-button" title="Remove Media"> <i class="fa-solid fa-circle-xmark"></i> </button>
+                            <!-- <button id="removeMedia" class="tryit-lateral-button" title="Remove Media"> <i class="fa-solid fa-circle-xmark"></i> </button> -->
                         </div>
                     </div>
                 </div>
@@ -92,9 +140,14 @@
                 <ul>
                     <li>Multi-language support</li>
                     <li>User-friendly interface</li>
+                    <li>Audio transcription & translation</li>
+                    <li>Text-to-speech functionality</li>
+                    <li>Real-time translation (coming soon)</li>
                 </ul>
             </div>
         </div>
+        <script src="js/settings.js"></script>
+        <script src="js/cookieManager.js"></script>
         <script src="js/translator.js"></script>
     </main>
 

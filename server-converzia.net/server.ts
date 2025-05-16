@@ -35,8 +35,12 @@ async function startServer() {
                 const languageField = data?.fields.language as any; // Estrai il campo 'language' dalla richiesta multipart
                 const language = languageField?.value || 'en';
 
+                const yourLanguageField = data?.fields.yourLanguage as any; // Estrai il campo 'yourLanguage' dalla richiesta multipart
+                const yourLanguage = yourLanguageField?.value || 'it'; // Imposta un valore predefinito se non presente
+
                 //contenuto della richiesta 
                 console.log("Selected language inviato nella richiesta :", language);
+                console.log("Client transcription language:", yourLanguage)
                 console.log("Uploaded file type:", fileType);
                 console.log("Uploaded file size:", fileBuffer?.length);
         
@@ -48,7 +52,7 @@ async function startServer() {
                 if (!parsedLanguagePresets[language]) 
                     throw new Error(`Language ${language} not supported!`);
 
-                const transcript = await openai.transcribeAudio(fileBuffer, fileType);
+                const transcript = await openai.transcribeAudio(fileBuffer, fileType, yourLanguage);
                 console.log("Transcription:", transcript);
                 const translation = await openai.getChatResponse(parsedLanguagePresets[language] + transcript);
                 console.log("Translation:", translation);
@@ -56,9 +60,10 @@ async function startServer() {
                 return reply.send({ translation, transcript });
             } else {
                 //SOLO TESTO
-                const data = await request.body as { text: string; language: string }; // Explicitly type the body
+                const data = await request.body as { text: string; language: string; yourLanguage?: string }; // Explicitly type the body
                 const text = data.text; // Estrai il campo 'text' dalla richiesta
                 const language = data.language; // Estrai il campo 'language' dalla richiesta
+                const yourLanguage = data.yourLanguage || 'it'; // Imposta un valore predefinito se non presente
                 
                 if (!parsedLanguagePresets[language]) 
                     throw new Error(`Language ${language} not supported!`);

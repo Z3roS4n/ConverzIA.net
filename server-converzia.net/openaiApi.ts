@@ -26,7 +26,7 @@ class OpenAIClient {
         }
     }
 
-    async transcribeAudio(audioBuffer: Buffer, fileType: string): Promise<string> {
+    async transcribeAudio(audioBuffer: Buffer, fileType: string, language="it"): Promise<string> {
         try {
             const supportedFormats = ['audio/webm', 'audio/mpeg', 'audio/wav', 'audio/ogg'];
             if (!supportedFormats.includes(fileType)) {
@@ -41,7 +41,7 @@ class OpenAIClient {
                 file: fs.createReadStream(tempFilePath),
                 model: 'whisper-1',
                 response_format: 'text',
-                language: 'it',
+                language: language,
             });
     
             fs.unlinkSync(tempFilePath); // Pulisci il file temporaneo

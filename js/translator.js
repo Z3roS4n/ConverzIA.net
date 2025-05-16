@@ -1,6 +1,8 @@
+const cookieManager = new CookieManager(); // Create a new instance of the CookieManager class
+
 let selectedLang = document.querySelector("#languageSelector"); //Language selector
 
-let settingsBtn = document.querySelector("#settingsButton"); //Top
+
 let translateBtn = document.querySelector("#translateButton"); //Lateral
 let insertMediaBtn = document.querySelector("#insertMedia"); //Lateral
 let clearBtn = document.querySelector("#clearButton"); //Lateral
@@ -12,6 +14,9 @@ let removeMediaBtn = document.querySelector("#removeMedia"); //Main
 let mediaContainer = document.querySelector("#mediaContainer"); //Main
 let mediaFileName = document.querySelector("#mediaFileName"); //Main
 
+let speakButton = document.querySelector("#speakButton"); //Main
+let stopButton = document.querySelector("#stopButton"); //Main
+
 let microphoneButton = document.querySelector("#microphoneButton"); //Main
 let microphoneIcon = document.querySelector("#microphoneIcon"); //Main
 
@@ -19,6 +24,7 @@ const strings_file = new FileReader([""], "strings.json", { type: "application/j
 const strings = JSON.parse(strings_file.result); // Read the file and parse it as JSON
 
 const TRANSLATE_URL = "http://127.0.0.1:3000/translate"; // Ensure consistent localhost usage
+
 
 microphoneButton.addEventListener("click", () => {
     event.preventDefault(); // Prevent default action of the button
@@ -50,13 +56,16 @@ let audioChunks = [];
 let audioBlob;
 let audioUrl;
 let language = "en"; // Default language
+let yourLanguage = cookieManager.getCookie("language") || "en"; // Get the language from the cookie or default to English
+settingsYourLanguageSelector.value = yourLanguage; // Set the value of the language selector in settings
+let autoTranslation = cookieManager.getCookie("autoTranslation") || "true"; // Get the auto-translation setting from the cookie
+settingsAutoTranslate.value = autoTranslation; // Set the value of the auto-translation checkbox in settings
 
 selectedLang.addEventListener("change", (event) => {
     selectedLang = event.target.value; // Get the selected language from the dropdown
     language = selectedLang; // Update the language variable
     console.log("Selected language:", selectedLang);
 });
-
 
 const startRecording = () => {
     navigator.mediaDevices.getUserMedia({ audio: true })
@@ -83,11 +92,22 @@ const stopRecording = () => {
     mediaRecorder = null; // Clear the media recorder
 }
 
+if (autoTranslation === "true") {
+    textArea.addEventListener("input", () => {
+        const text = textArea.value; // Get the text from the textarea
+        if (text.trim() !== "") {
+            sendTextToServer(text); // Send the text to the server for translation
+        } else {
+            outputText.value = ""; // Clear the output text area if the input is empty
+        }
+    });
+}
+
 const sendTextToServer = (text) => {
-    outputText.value = strings.translating[language]; // Update the output text area with a loading message
+    //outputText.value = strings.translating[language]; // Update the output text area with a loading message
     fetch(TRANSLATE_URL, {
         method: "POST",
-        body: JSON.stringify({ text, language }), // Send the text and selected language as JSON
+        body: JSON.stringify({ text, language, yourLanguage }), // Send the text and selected language as JSON
         headers: {
             "Content-Type": "application/json",
         },
@@ -104,19 +124,20 @@ const sendTextToServer = (text) => {
 
 const sendAudioToServer = (audioBlob) => {
     const formData = new FormData();
-    outputText.value = strings.translating_audio[language]; // Update the output text area with a loading message
+    //outputText.value = strings.translating_audio[language]; // Update the output text area with a loading message
     formData.append("audio", audioBlob, "recording.wav"); // Append the audio blob to the form data
     formData.append("language", language); // Append the selected language to the form data
+    formData.append("yourLanguage", yourLanguage); // Append the user's language to the form data
     fetch(TRANSLATE_URL, {
         method: "POST",
         body: formData,
     })
         .then(response => response.json())
         .then(data => {
-            console.log("Transcription:", data.text);
+            console.log("Transcription:", data.transcript);
             console.log("Translation response:", data.translation);
             outputText.value = data.translation; // Update the text area with the translation
-            textArea.value = data.text; // Update the text area with the transcription
+            textArea.value = data.transcript; // Update the text area with the transcription
         })
         .catch(error => {
             console.error("Error sending audio to server:", error);
@@ -126,6 +147,7 @@ const sendAudioToServer = (audioBlob) => {
 const clearText = () => {
     textArea.value = "";
     textArea.focus();
+    outputText.value = ""; // Clear the output text area
 }
 
 const clearMedia = () => {
@@ -143,6 +165,7 @@ clearBtn.addEventListener("click", () => {
     clearMedia();
 });
 
+/* 
 insertMediaBtn.addEventListener("click", () => {
     // Open a file dialog to select media files (audio/video)
     const fileInput = document.createElement("input");
@@ -153,10 +176,6 @@ insertMediaBtn.addEventListener("click", () => {
         if (file) {
             const fileType = file.type.split("/")[0]; // Get the type (audio or video)
             const fileUrl = URL.createObjectURL(file); // Create a URL for the file
-
-            selectedMedia.type = fileType;
-            selectedMedia.uri = fileUrl;
-            selectedMedia.alt = file.name; // Use the file name as alt text
 
             mediaContainer.style = "display: flex"; // Show the media container
 
@@ -175,4 +194,20 @@ removeMediaBtn.addEventListener("click", () => {
         textDiv.removeChild(mediaElement);
     });
     clearMedia();
+});
+*/
+
+speakButton.addEventListener("click", () => {
+    const text = outputText.value; // Get the text from the output text area
+    if (text.trim() === "") {
+        alert("Please enter text to speak."); // Alert if the output text area is empty
+    } else {
+        const utterance = new SpeechSynthesisUtterance(text); // Create a new speech synthesis utterance
+        utterance.lang = language; // Set the language for the utterance
+        speechSynthesis.speak(utterance); // Speak the text
+    }
+});
+
+stopButton.addEventListener("click", () => {
+    speechSynthesis.cancel(); // Stop any ongoing speech synthesis
 });
