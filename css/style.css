@@ -133,6 +133,12 @@ main {
     color: var(--color-grey);
 }
 
+div.cta {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+}
+
 .cta-button {
     display: flex;
     justify-content: center;
@@ -453,6 +459,65 @@ form > .contact_form {
     opacity: 100%;
 }
 
+
+/* SECTION FAQ
+
+
+        <section id="faq" class="section light">
+            <h2 class="section_title">Domande Frequenti</h2>
+            <div class="faq_item">
+                <h3>Come funziona ConverzIA.net?</h3>
+                <p>ConverzIA.net utilizza un dispositivo portatile con microfono e altoparlante integrati, un'app mobile e una versione web per offrire traduzioni in tempo reale.</p>
+            </div>
+            <div class="faq_item">
+                <h3>Quali lingue sono supportate?</h3>
+                <p>Supportiamo oltre 50 lingue, tra cui inglese, spagnolo, francese, tedesco, cinese e molte altre.</p>
+            </div>
+            <div class="faq_item">
+                <h3>È sicuro usare ConverzIA.net?</h3>
+                <p>Sì, la tua privacy è la nostra priorità. Tutti i dati sono criptati e non vengono condivisi con terze parti.</p>
+            </div>
+            <div class="faq_item">
+                <h3>Posso usare ConverzIA.net offline?</h3>
+                <p>Al momento, ConverzIA.net richiede una connessione internet per funzionare correttamente, ma stiamo lavorando per offrire funzionalità offline in futuro.</p>
+            </div>
+        </section>
+
+*/
+
+.section#faq {
+    display: flex;
+    flex-direction: column;
+    padding: 20px 0;
+    width: 50%;
+    gap: 2em;
+}
+
+.section#faq > h2.section_title {
+    font-size: 2.5em;
+    font-weight: 800;
+    color: var(--color-blue-dark);
+    margin: 0;
+}
+
+.section#faq > div.faq_item {
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: var(--shadow-blue-pastel);
+    opacity: 60%;
+    transition: background-color 0.2s, box-shadow 0.3s;
+}
+
+.section#faq > div.faq_item:hover {
+    background-color: var(--color-blue-light);
+    box-shadow: var(--hover-shadow-blue-light);
+    color: var(--color-light-grey);
+    opacity: 100%;
+}
+
+/* SECTION FOOTER */
 
 
 
