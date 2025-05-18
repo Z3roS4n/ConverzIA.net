@@ -23,8 +23,8 @@ let microphoneIcon = document.querySelector("#microphoneIcon"); //Main
 const strings_file = new FileReader([""], "strings.json", { type: "application/json" }); // Create a new file object
 const strings = JSON.parse(strings_file.result); // Read the file and parse it as JSON
 
-const TRANSLATE_URL = "http://127.0.0.1:3000/translate"; // Ensure consistent localhost usage
-
+//const TRANSLATE_URL = "http://127.0.0.1:3000/translate"; // Ensure consistent localhost usage
+const TRANSLATE_URL = "https://converzia-server-949623c39a97.herokuapp.com/translate"; // Use the production URL for translation
 
 microphoneButton.addEventListener("click", () => {
     event.preventDefault(); // Prevent default action of the button
