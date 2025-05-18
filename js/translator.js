@@ -151,10 +151,6 @@ const clearText = () => {
 }
 
 const clearMedia = () => {
-    selectedMedia.type = null;
-    selectedMedia.uri = null;
-    selectedMedia.alt = null;
-
     mediaContainer.style = "display: none"; // Hide the media container
 
     mediaFileName.innerHTML = ""; // Clear the media file name
@@ -162,7 +158,7 @@ const clearMedia = () => {
 
 clearBtn.addEventListener("click", () => {
     clearText();
-    clearMedia();
+    //clearMedia();
 });
 
 /* 
@@ -200,7 +196,7 @@ removeMediaBtn.addEventListener("click", () => {
 speakButton.addEventListener("click", () => {
     const text = outputText.value; // Get the text from the output text area
     if (text.trim() === "") {
-        alert("Please enter text to speak."); // Alert if the output text area is empty
+        alert("Please translate a string first."); // Alert if the output text area is empty
     } else {
         const utterance = new SpeechSynthesisUtterance(text); // Create a new speech synthesis utterance
         utterance.lang = language; // Set the language for the utterance
