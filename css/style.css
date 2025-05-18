@@ -1031,7 +1031,7 @@ p.settings-nb {
         height: 1.7em;
     }
 
-    .section#about, .section#features, .section#how-it-works, .section#contact {
+    .section#about, .section#features, .section#how-it-works, .section#contact, .section#faq {
         width: 90%;
     }
 
