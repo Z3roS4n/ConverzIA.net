@@ -115,7 +115,7 @@ const sendTextToServer = (text) => {
         .then(response => response.json())
         .then(data => {
             console.log("Translation response:", data.translation);
-            outputText.value = data.translation; // Update the text area with the translation
+            outputText.value = data.translation ? data.translation : text; // Update the text area with the translation
         })
         .catch(error => {
             console.error("Error sending text to server:", error);
@@ -136,7 +136,7 @@ const sendAudioToServer = (audioBlob) => {
         .then(data => {
             console.log("Transcription:", data.transcript);
             console.log("Translation response:", data.translation);
-            outputText.value = data.translation; // Update the text area with the translation
+            outputText.value = data.translation ? data.translation : data.transcript; // Update the text area with the translation
             textArea.value = data.transcript; // Update the text area with the transcription
         })
         .catch(error => {
