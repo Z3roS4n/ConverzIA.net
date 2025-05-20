@@ -96,7 +96,7 @@ if (autoTranslation === "true") {
     textArea.addEventListener("input", () => {
         const text = textArea.value; // Get the text from the textarea
         if (text.trim() !== "") {
-            sendTextToServer(text); // Send the text to the server for translation
+            sendTextToServer("::" + text); // Send the text to the server for translation
         } else {
             outputText.value = ""; // Clear the output text area if the input is empty
         }
