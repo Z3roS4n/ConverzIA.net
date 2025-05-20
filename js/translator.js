@@ -56,7 +56,7 @@ let audioChunks = [];
 let audioBlob;
 let audioUrl;
 let language = "en"; // Default language
-let yourLanguage = cookieManager.getCookie("language") || "en"; // Get the language from the cookie or default to English
+let yourLanguage = cookieManager.getCookie("language") || "it"; // Get the language from the cookie or default to English
 settingsYourLanguageSelector.value = yourLanguage; // Set the value of the language selector in settings
 let autoTranslation = cookieManager.getCookie("autoTranslation") || "true"; // Get the auto-translation setting from the cookie
 settingsAutoTranslate.value = autoTranslation; // Set the value of the auto-translation checkbox in settings
